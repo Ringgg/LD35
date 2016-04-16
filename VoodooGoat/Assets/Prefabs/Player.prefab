@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  SmokePrefab: {fileID: 184700, guid: 306db8cb2d1baf5428ef9326132f4540, type: 2}
   compromised: 1
 --- !u!114 &11430384
 MonoBehaviour:
