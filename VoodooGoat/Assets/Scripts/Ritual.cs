@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Ritual : MonoBehaviour {
+public class Ritual : MonoBehaviour
+{
 
     bool done = false;
     bool stop = false;
@@ -10,7 +11,7 @@ public class Ritual : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         stop = false;
-        if(other.gameObject.tag == "Player" && !done)
+        if (other.gameObject.tag == "Player" && !done)
             StartCoroutine(DoRitual());
     }
 
@@ -24,7 +25,6 @@ public class Ritual : MonoBehaviour {
     IEnumerator DoRitual()
     {
         float timePassed = 0;
-        Debug.Log("coroutine started");
 
         while (timePassed < time && !stop)
         {
@@ -32,6 +32,18 @@ public class Ritual : MonoBehaviour {
             Debug.Log(timePassed);
             yield return new WaitForSeconds(1);
         }
-        if (timePassed >= time) done = true;
+        if (timePassed >= time)
+        {
+            done = true;
+            Finish();
+        }
+    }
+
+    void Finish()
+    {
+        Game.instance.player.compromised = true;
+        //najblizszy policjant idzie na miejsce zdarzenia
+        //przez 10s nie mozesz sie zmienic
+        //spawn particle
     }
 }

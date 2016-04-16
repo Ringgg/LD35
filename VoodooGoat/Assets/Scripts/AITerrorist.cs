@@ -30,7 +30,7 @@ public class AITerrorist : MonoBehaviour {
     void Update()
     {
         //Debug.Log(Game.instance.player.transform.position);
-        if (CanSee(player.transform))
+        if (Vision.CanSee(transform, player.transform, sightRange))
         {
             Debug.Log("See you");
         }
@@ -42,27 +42,5 @@ public class AITerrorist : MonoBehaviour {
             Game.instance.terrorists.Remove(this);
     }
 
-    public void SetNewTarget()
-    {
-        if (!isMoving)
-        {
-            do
-            {
-                controller.target = targetList[Random.Range(0, targetList.Length - 1)];
-            } while (controller.target.position == lastKnownLocation);
-
-            isMoving = true;
-        }
-    }
-
-    bool CanSee(Transform t)
-    {
-        if (!Physics.Raycast(new Ray(transform.position, t.transform.position - transform.position),
-            out hitInfo,
-            sightRange))
-            return false;
-
-        return hitInfo.collider.transform == player;
-    }
 
 }
