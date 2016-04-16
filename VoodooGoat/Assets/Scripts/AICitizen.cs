@@ -4,7 +4,7 @@ using System.Collections;
 public class AICitizen : MonoBehaviour
 {
     public Vector3 lastKnownLocation;
-    float locationUpdateTme;
+    public float locationUpdateTme;
     public bool isMoving = true;
 
     AICharacterControl controller;
@@ -15,7 +15,16 @@ public class AICitizen : MonoBehaviour
     {
         controller = GetComponent<AICharacterControl>();
         lastKnownLocation = transform.position;
+        Game.instance.citizens.Add(this);
     }
+
+
+    void OnDestroy()
+    {
+        if (Game.instance != null)
+            Game.instance.citizens.Remove(this);
+    }
+
 
     public void SetNewTarget()
     {
