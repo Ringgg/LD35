@@ -6,8 +6,8 @@ public class AIPoliceman : MonoBehaviour
 {
     AICharacterControl controller;
     
-    Vector3 lastKnownLocation;
-    float locationUpdateTime = -1.0f;
+    public Vector3 lastKnownLocation;
+    public float locationUpdateTime = -1.0f;
     public float sightRange = 10.0f;
     float talkRange = 3.0f;
     float talkTime = 2.0f;
@@ -62,7 +62,7 @@ public class AIPoliceman : MonoBehaviour
         controller.agent.SetDestination(lastKnownLocation);
 
         yield return null;
-        Debug.Log(controller.agent.remainingDistance);
+
         while (!IsAtDeadEnd())
         {
             if (CanChase())
@@ -73,7 +73,6 @@ public class AIPoliceman : MonoBehaviour
 
             yield return null;
         }
-        Debug.Log("GoingToCitizen");
         GetNearestVisibleCitizen();
         if (citizen != null)
         {
@@ -140,6 +139,8 @@ public class AIPoliceman : MonoBehaviour
         controller.target = null;
         while (remainingTime > 0.0f)
         {
+            //todo: play talking sound
+            //place indicator of position a citizen is pointing
             remainingTime -= Time.deltaTime;
             if (CanChase())
             {
