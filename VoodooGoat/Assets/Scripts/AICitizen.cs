@@ -7,6 +7,9 @@ public class AICitizen : MonoBehaviour
     public float locationUpdateTime;
     public float sightRange = 10.0f;
     public bool isMoving = true;
+    GameObject instance;
+
+    public GameObject warning;
 
     AICharacterControl controller;
 
@@ -20,6 +23,9 @@ public class AICitizen : MonoBehaviour
         controller = GetComponent<AICharacterControl>();
         lastKnownLocation = transform.position;
         Game.instance.citizens.Add(this);
+        instance = Instantiate(warning) as GameObject;
+        instance.transform.position = transform.position + new Vector3(0, 1, 0);
+        instance.active = false;
     }
 
 
@@ -27,29 +33,22 @@ public class AICitizen : MonoBehaviour
     {
         if (Game.instance.player.compromised && Vision.CanSee(transform, Game.instance.player.transform, sightRange))
         {
+            if (!instance.active)
+            {
+                instance.active = true;
+            }
             lastKnownLocation = Game.instance.player.transform.position;
             locationUpdateTime = Time.time;
         }
+        else
+        {
+            instance.active = false;
+        }
     }
-
 
     void OnDestroy()
     {
         if (Game.instance != null)
             Game.instance.citizens.Remove(this);
-    }
-    
-
-    public void SetNewTarget()
-    {
-        if (!isMoving)
-        {
-            do
-            {
-                controller.target = targetList[Random.Range(0, targetList.Length - 1)];
-            } while (controller.target.position == lastKnownLocation);
-
-            isMoving = true;
-        }
     }
 }
