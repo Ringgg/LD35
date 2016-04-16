@@ -8,6 +8,9 @@ public class Ritual : MonoBehaviour
     bool stop = false;
     public float time;
 
+    [SerializeField]
+    GameObject particleEffect;
+
     void OnTriggerEnter(Collider other)
     {
         stop = false;
@@ -42,8 +45,29 @@ public class Ritual : MonoBehaviour
     void Finish()
     {
         Game.instance.player.compromised = true;
+
         //najblizszy policjant idzie na miejsce zdarzenia
+        AIPoliceman closest = null;
+        float closestDist = float.MaxValue;
+        float currentDist;
+        foreach (AIPoliceman p in Game.instance.policemen)
+        {
+            currentDist = Vector3.Distance(transform.position, p.transform.position);
+            if (currentDist < closestDist)
+            {
+                closestDist = currentDist;
+                closest = p;
+            }
+        }
+
+        closest.lastKnownLocation = transform.position;
+        closest.locationUpdateTime = Time.time;
+
         //przez 10s nie mozesz sie zmienic
+        Game.instance.player.shiftCooldown = 10.0f;
+
         //spawn particle
+        if (particleEffect != null)
+            Instantiate(particleEffect, transform.position + Vector3.up, Quaternion.identity);
     }
 }

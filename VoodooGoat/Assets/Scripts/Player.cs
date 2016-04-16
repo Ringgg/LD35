@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     GameObject SmokePrefab;
     public bool compromised = true;
+    public bool isGoatForFifeSeconds = true;
+    public float shiftCooldown;
 
     void Start()
     {
@@ -16,8 +18,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        shiftCooldown = Mathf.MoveTowards(shiftCooldown, 0.0f, Time.deltaTime);
+
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
+            if (shiftCooldown != 0)
+            {
+                //negative feedback
+                return;
+            }
+
             if (SmokePrefab != null)
                 Instantiate(SmokePrefab, transform.position + Vector3.up, Quaternion.identity);
 
@@ -28,11 +38,19 @@ public class Player : MonoBehaviour
                 state = State.dude;
             }
             else
-                compromised = IsVisible();
             {
+                compromised = IsVisible();
                 state = State.goat;
             }
         }
+    }
+    
+
+    public void ComboBreaker()
+    {
+        //player was seen as a goat by police shorter than 5 seconds after being seen
+        compromised = true;
+        shiftCooldown += 3.0f;
     }
 
 
