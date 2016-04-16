@@ -1,18 +1,32 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class AICitizen : MonoBehaviour
 {
     public Vector3 lastKnownLocation;
-    public float locationUpdateTme;
+    float locationUpdateTme;
+    public bool isMoving = true;
+
+    AICharacterControl controller;
+
+    public Transform[] targetList;
 
     void Start()
     {
-        Game.instance.citizens.Add(this);
+        controller = GetComponent<AICharacterControl>();
+        lastKnownLocation = transform.position;
     }
 
-    void OnDestroy()
+    public void SetNewTarget()
     {
-        if (Game.instance != null)
-            Game.instance.citizens.Remove(this);
+        if (!isMoving)
+        {
+            do
+            {
+                controller.target = targetList[Random.Range(0, targetList.Length - 1)];
+            } while (controller.target.position == lastKnownLocation);
+
+            isMoving = true;
+        }
     }
 }
