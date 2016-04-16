@@ -15,7 +15,6 @@ public class AICitizen : MonoBehaviour
     {
         controller = GetComponent<AICharacterControl>();
         lastKnownLocation = transform.position;
-        controller.target = targetList[Random.Range(0, targetList.Length - 1)];
     }
 
     public void SetNewTarget()

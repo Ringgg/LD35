@@ -659,6 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1675999605}
+  offset: {x: 0, y: 5, z: 0}
 --- !u!1 &1118525183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,9 +1137,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1569350801}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 307bd34484d5ba040b8c72dea306c086, type: 3}
+  m_Script: {fileID: 11500000, guid: ca3b7cedc17305148bb3a9bb915c1f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastKnownLocation: {x: 0, y: 0, z: 0}
+  isMoving: 1
+  targetList: []
 --- !u!23 &1569350808
 MeshRenderer:
   m_ObjectHideFlags: 0
