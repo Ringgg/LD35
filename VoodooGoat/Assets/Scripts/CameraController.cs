@@ -4,9 +4,11 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 
     public Transform target;
+    public Vector3 offset = new Vector3(0, 5, 0);
 
-	void Update () {
-        //transform.LookAt(target);
-        transform.position = target.position + new Vector3(0,10,-6.5f);
+	void Update ()
+    {
+        if (target != null)
+            transform.position = target.position + offset;
 	}
 }
