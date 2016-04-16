@@ -7,11 +7,10 @@ public class AIPoliceman : MonoBehaviour
     AICharacterControl controller;
     
     Vector3 lastKnownLocation;
-    float locationUpdateTme = -1.0f;
+    float locationUpdateTime = -1.0f;
     float sightRange = 10.0f;
-    float talkRange = 4.0f;
-    float talkTime = 1.0f;
-    bool pursuing = true;
+    float talkRange = 3.0f;
+    float talkTime = 2.0f;
 
     //helper variables
     RaycastHit hitInfo;
@@ -27,34 +26,14 @@ public class AIPoliceman : MonoBehaviour
         StartCoroutine("Wander");
     }
 
-
     void Update()
     {
-        if (pursuing)
-        {
-            if (player.compromised && CanSee(player.transform))
-            {
-                pursuing = true;
-                controller.target = player.transform;
-                lastKnownLocation = player.transform.position;
-            }
-            else
-            {
-                controller.target = null;
-                if (!IsAtDeadEnd())
-                {
-                    controller.agent.SetDestination(lastKnownLocation);
-                }
-                else
-                {
-                    citizen = GetNearestVisibleCitizen();
-                }
-            }
-        }
-        //else wander around
+        if (citizen != null)
+            Debug.DrawLine(transform.position, citizen.transform.position);
+        if (controller.target != null)
+            Debug.DrawLine(transform.position, controller.target.transform.position);
     }
-
-
+    
     void OnDestroy()
     {
         if (Game.instance != null)
@@ -65,8 +44,9 @@ public class AIPoliceman : MonoBehaviour
     {
         controller.target = player.transform;
 
-        while (player.compromised && CanSee(player.transform))
+        while (CanChase())
         {
+            lastKnownLocation = player.transform.position;
             yield return null;
         }
 
@@ -74,68 +54,114 @@ public class AIPoliceman : MonoBehaviour
         StartCoroutine("CatchUp");
     }
 
+
     IEnumerator CatchUp()
     {
         controller.agent.SetDestination(lastKnownLocation);
-        while(controller.agent.remainingDistance > controller.agent.stoppingDistance)
+
+        yield return null;
+        Debug.Log(controller.agent.remainingDistance);
+        while (!IsAtDeadEnd())
         {
-            //checksight -> chase
+            if (CanChase())
+            {
+                StartCoroutine("Chase");
+                yield break;
+            }
+
+            yield return null;
+        }
+        Debug.Log("GoingToCitizen");
+        GetNearestVisibleCitizen();
+        if (citizen != null)
+        {
+            StartCoroutine("Investigate");
+            yield break;
+        }
+        else
+        {
+            StartCoroutine("Wander");
+            yield break;
+        }
+    }
+
+
+    IEnumerator Wander()
+    {
+        while (!CanChase())
+        {
+            yield return null;
+        }
+
+        controller.target = player.transform;
+        StartCoroutine("Chase");
+        yield break;
+    }
+
+
+    IEnumerator Investigate()
+    {
+        if (citizen == null)
+            yield break;
+
+        float remainingTime = talkTime;
+
+        while (Vector3.Distance(transform.position, citizen.transform.position) > talkRange)
+        {
+            controller.target = citizen.transform;
+            if (CanChase())
+            {
+                citizen = null;
+                StartCoroutine("Chase");
+                yield break;
+            }
 
             yield return null;
         }
 
-        citizen = GetNearestVisibleCitizen();
-        StartCoroutine("Investigate");
-    }
-
-    IEnumerator Wander()
-    {
-        
-        yield return null;
-    }
-
-    IEnumerator Investigate()
-    {
-        if (citizen != null)
+        controller.target = null;
+        while (remainingTime > 0.0f)
         {
-            float remainingTime = talkTime;
-
-            while (Vector3.Distance(transform.position, citizen.transform.position) < talkRange)
+            remainingTime -= Time.deltaTime;
+            if (CanChase())
             {
-                controller.target = citizen.transform;
-
-                yield return null;
-            }
-            
-            while (remainingTime > 0.0f)
-            {
-                remainingTime -= Time.deltaTime;
-                
-                yield return null;
-            }
-
-            if (citizen.locationUpdateTme > locationUpdateTme)
-            {
-                lastKnownLocation = citizen.lastKnownLocation;
+                citizen = null;
                 StartCoroutine("Chase");
+                yield break;
             }
-            else
-            {
-                StartCoroutine("Wander");
-            }
-            citizen = null;
+
+            yield return null;
+        }
+
+        if (citizen.locationUpdateTime > locationUpdateTime)
+        {
+            lastKnownLocation = citizen.lastKnownLocation;
+            locationUpdateTime = citizen.locationUpdateTime;
+            StartCoroutine("CatchUp");
+            yield break;
+        }
+        else
+        {
+            Debug.Log(":(");
+            StartCoroutine("Wander");
+            yield break;
         }
     }
 
 
     bool CanSee(Transform t)
     {
-        if (!Physics.Raycast(new Ray(transform.position, player.transform.position - transform.position),
+        if (!Physics.Raycast(new Ray(transform.position, t.position - transform.position),
             out hitInfo, 
             sightRange))
             return false;
+        return hitInfo.collider.transform == t;
+    }
 
-        return hitInfo.collider.transform == player;
+
+    bool CanChase()
+    {
+        return CanSee(player.transform) && player.compromised;
     }
 
 
@@ -145,8 +171,18 @@ public class AIPoliceman : MonoBehaviour
     }
 
 
-    AICitizen GetNearestVisibleCitizen()
+    void GetNearestVisibleCitizen()
     {
-        return null;
+        citizen = null;
+        float closestDist = float.MaxValue;
+        float dist;
+        foreach(AICitizen c in Game.instance.citizens)
+        {
+            dist = Vector3.Distance(transform.position, c.transform.position);
+            if (dist < closestDist && CanSee(c.transform) && c.locationUpdateTime > locationUpdateTime)
+            {
+                citizen = c;
+            }
+        }
     }
 }
