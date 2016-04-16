@@ -7,6 +7,11 @@ public class Player : MonoBehaviour
 
     public bool compromised;
 
+    void Start()
+    {
+        Game.instance.player = this;
+    }
+
     void Update()
     {
 
