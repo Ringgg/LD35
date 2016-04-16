@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
     public Player player;
     public List<AICitizen> citizens = new List<AICitizen>();
     public List<AIPoliceman> policemen = new List<AIPoliceman>();
+    public List<AITerrorist> terrorists = new List<AITerrorist>();
     
     void OnApplicationQuit()
     {
