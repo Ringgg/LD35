@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 424688}
   - 54: {fileID: 5410244}
   - 136: {fileID: 13692006}
-  - 114: {fileID: 11462622}
   - 195: {fileID: 19575340}
+  - 114: {fileID: 11462622}
   - 114: {fileID: 11413238}
   - 114: {fileID: 11475002}
   m_Layer: 0
@@ -210,8 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227ac2718c17e814ba6e46791a22cf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MovementSpeed: 5
-  m_MovementAcceleration: 10
+  m_MovementSpeed: 2
+  m_MovementAcceleration: 5
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
 --- !u!114 &11475002
@@ -246,7 +246,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 112210}
   m_Enabled: 1
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 0
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

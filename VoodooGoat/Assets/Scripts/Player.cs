@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
     public enum State { dude, goat }
     public State state;
 
-    public bool compromised;
+    public bool compromised = true;
 
     void Start()
     {

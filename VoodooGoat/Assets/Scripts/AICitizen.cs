@@ -2,8 +2,8 @@
 
 public class AICitizen : MonoBehaviour
 {
-    Vector3 lastKnownLocation;
-    float locationUpdateTme;
+    public Vector3 lastKnownLocation;
+    public float locationUpdateTme;
 
     void Start()
     {
@@ -12,6 +12,7 @@ public class AICitizen : MonoBehaviour
 
     void OnDestroy()
     {
-        Game.instance.citizens.Remove(this);
+        if (Game.instance != null)
+            Game.instance.citizens.Remove(this);
     }
 }

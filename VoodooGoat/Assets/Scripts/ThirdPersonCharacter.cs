@@ -22,10 +22,9 @@ public class ThirdPersonCharacter : MonoBehaviour
 	public void Move(Vector3 move)
 	{
         //movement
-        if (move.magnitude > 1f) move.Normalize();
+        move.Normalize();
         m_Rigidbody.velocity = Vector3.MoveTowards(m_Rigidbody.velocity, move * m_MovementSpeed, m_MovementAcceleration * Time.fixedDeltaTime);
-
-        //Debug.Log(m_Rigidbody.velocity);
+        
         //rotation
         move = transform.InverseTransformDirection(move);
 		m_TurnAmount = Mathf.Atan2(move.x, move.z);

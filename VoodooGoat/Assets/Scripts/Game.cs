@@ -4,18 +4,23 @@ using System.Collections.Generic;
 public class Game : MonoBehaviour
 {
     static Game _instance;
-    
+    static bool quitting = false;
+
     public Player player;
     public List<AICitizen> citizens = new List<AICitizen>();
     public List<AIPoliceman> policemen = new List<AIPoliceman>();
     
+    void OnApplicationQuit()
+    {
+        quitting = true;
+    }
 
     public static Game instance
     {
         get
         {
-            if (_instance == null)
-                _instance = new Game();
+            if (_instance == null && !quitting)
+                _instance = new GameObject("Game").AddComponent<Game>();
             return _instance;
         }
     }
