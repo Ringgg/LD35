@@ -3,30 +3,25 @@ using System.Collections;
 
 public class CitizenTarget : MonoBehaviour {
 
-    AICitizen citizen;
+    AITerrorist terrorist;
     float waitTime =5;
 
 
     void OnTriggerEnter(Collider other)
     {
-        citizen = other.GetComponent<AICitizen>();
-        if(citizen != null)
+        terrorist = other.GetComponent<AITerrorist>();
+        if(terrorist != null)
         {
             StartCoroutine(Stay());
         }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        citizen = null;
     }
 
     IEnumerator Stay()
     {
         yield return new WaitForSeconds(waitTime);
 
-        citizen.lastKnownLocation = transform.position;
-        citizen.isMoving = false;
-        citizen.SetNewTarget();
+        terrorist.lastKnownLocation = transform.position;
+        terrorist.isMoving = false;
+        terrorist.SetNewTarget();
     }
 }

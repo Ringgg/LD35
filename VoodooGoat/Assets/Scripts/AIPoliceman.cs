@@ -11,6 +11,8 @@ public class AIPoliceman : MonoBehaviour
     public float sightRange = 10.0f;
     float talkRange = 3.0f;
     float talkTime = 2.0f;
+    float x = 0.5f;
+    public Transform[] targetList;
 
     //helper variables
     RaycastHit hitInfo;
@@ -88,8 +90,15 @@ public class AIPoliceman : MonoBehaviour
 
     IEnumerator Wander()
     {
+        yield return new WaitForSeconds(2.0f);
+        SetNewTarget();
         while (!CanChase())
         {
+            if (controller.agent.remainingDistance < x)
+            {
+                SetNewTarget();
+                yield return new WaitForSeconds(0.1f);
+            }
             yield return null;
         }
 
@@ -98,6 +107,15 @@ public class AIPoliceman : MonoBehaviour
         yield break;
     }
 
+    IEnumerator Follow()
+    {
+        while (true)
+        {
+
+            yield return new WaitForEndOfFrame();
+            //yield return null;
+        }
+    }
 
     IEnumerator Investigate()
     {
@@ -173,5 +191,17 @@ public class AIPoliceman : MonoBehaviour
                 citizen = c;
             }
         }
+    }
+
+    
+
+    void SetNewTarget()
+    {
+        do
+        {
+            controller.target = targetList[Random.Range(0, targetList.Length - 1)];
+
+        } while (controller.target.position == lastKnownLocation);
+        lastKnownLocation = controller.target.position;
     }
 }
