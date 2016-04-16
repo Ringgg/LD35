@@ -8,7 +8,7 @@ public class AIPoliceman : MonoBehaviour
     
     Vector3 lastKnownLocation;
     float locationUpdateTime = -1.0f;
-    float sightRange = 10.0f;
+    public float sightRange = 10.0f;
     float talkRange = 3.0f;
     float talkTime = 2.0f;
 
@@ -142,26 +142,15 @@ public class AIPoliceman : MonoBehaviour
         }
         else
         {
-            Debug.Log(":(");
             StartCoroutine("Wander");
             yield break;
         }
     }
 
 
-    bool CanSee(Transform t)
-    {
-        if (!Physics.Raycast(new Ray(transform.position, t.position - transform.position),
-            out hitInfo, 
-            sightRange))
-            return false;
-        return hitInfo.collider.transform == t;
-    }
-
-
     bool CanChase()
     {
-        return CanSee(player.transform) && player.compromised;
+        return Vision.CanSee(transform, player.transform, sightRange) && player.compromised;
     }
 
 
@@ -179,7 +168,7 @@ public class AIPoliceman : MonoBehaviour
         foreach(AICitizen c in Game.instance.citizens)
         {
             dist = Vector3.Distance(transform.position, c.transform.position);
-            if (dist < closestDist && CanSee(c.transform) && c.locationUpdateTime > locationUpdateTime)
+            if (dist < closestDist && Vision.CanSee(transform, c.transform, sightRange) && c.locationUpdateTime > locationUpdateTime)
             {
                 citizen = c;
             }
