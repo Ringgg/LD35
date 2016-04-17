@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject goatMesh;
 
     public bool compromised = true;
-    public bool isGoatForFifeSeconds = true;
+    public bool wasGoatForFifeSeconds = true;
     public float shiftCooldown;
 
     void Start()
@@ -32,7 +32,6 @@ public class Player : MonoBehaviour
             }
 
             shiftCooldown += 1.0f;
-            isGoatForFifeSeconds = false;
 
             if (SmokePrefab != null)
                 Instantiate(SmokePrefab, transform.position, Quaternion.identity);
@@ -47,7 +46,17 @@ public class Player : MonoBehaviour
             }
             else
             {
-                compromised = IsVisible();
+                if (!IsVisible())
+                {
+                    if (compromised)
+                    {
+                        compromised = false;
+                        StartCoroutine("AfterChangingToGoat");
+                    }
+                }
+                else
+                    compromised = true;
+
                 state = State.goat;
                 dudeMesh.SetActive(false);
                 goatMesh.SetActive(true);
@@ -58,6 +67,8 @@ public class Player : MonoBehaviour
     IEnumerator AfterChangingToGoat()
     {
         float timePassed = 0.0f;
+        wasGoatForFifeSeconds = false;
+        //start timer
 
         while(timePassed < 5.0f)
         {
@@ -72,7 +83,57 @@ public class Player : MonoBehaviour
             timePassed += Time.deltaTime;
             yield return null;
         }
-        isGoatForFifeSeconds = true;
+
+        //end timer
+        wasGoatForFifeSeconds = true;
+    }
+
+
+    public void GetCatchedPoliceman()
+    {
+        if (!Game.instance.finished)
+        {
+            Game.instance.finished = true;
+            Debug.Log("you got catched by a policeman");
+            GetComponent<ThirdPersonUserControl>().enabled = false;
+            enabled = false;
+        }
+    }
+
+
+    public void GetCatchedTerririst()
+    {
+        if (!Game.instance.finished)
+        {
+            Game.instance.finished = true;
+            Debug.Log("you got catched by a terrorist");
+            GetComponent<ThirdPersonUserControl>().enabled = false;
+            enabled = false;
+        }
+    }
+
+
+    public void RunOutOfTime()
+    {
+        if (!Game.instance.finished)
+        {
+            Game.instance.finished = true;
+            Debug.Log("you ran out of time");
+            GetComponent<ThirdPersonUserControl>().enabled = false;
+            enabled = false;
+        }
+    }
+
+
+    public void WinGame()
+    {
+        if (!Game.instance.finished)
+        {
+            Game.instance.finished = true;
+            Debug.Log("you won");
+            GetComponent<ThirdPersonUserControl>().enabled = false;
+            enabled = false;
+        }
     }
 
 

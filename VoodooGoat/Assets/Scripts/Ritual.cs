@@ -3,13 +3,19 @@ using System.Collections;
 
 public class Ritual : MonoBehaviour
 {
-
     bool done = false;
     bool stop = false;
     public float time;
 
     [SerializeField]
     GameObject particleEffect;
+
+
+    void Start()
+    {
+        Game.instance.ritualsRemaining++;
+    }
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -59,9 +65,8 @@ public class Ritual : MonoBehaviour
                 closest = p;
             }
         }
-
-        closest.lastKnownLocation = transform.position;
-        closest.locationUpdateTime = Time.time;
+        
+        closest.ForceCatchUp(transform.position);
 
         //przez 10s nie mozesz sie zmienic
         Game.instance.player.shiftCooldown = 10.0f;
@@ -69,5 +74,12 @@ public class Ritual : MonoBehaviour
         //spawn particle
         if (particleEffect != null)
             Instantiate(particleEffect, transform.position + Vector3.up, Quaternion.identity);
+
+        //game logic
+        Game.instance.ritualsRemaining--;
+        Game.instance.timeRemaining += 60.0f;
+        Debug.Log("Ritual completed. " + Game.instance.ritualsRemaining + " more remaining");
+        if (Game.instance.ritualsRemaining == 0)
+            Game.instance.player.WinGame();
     }
 }

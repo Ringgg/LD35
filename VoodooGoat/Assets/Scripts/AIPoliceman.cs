@@ -9,6 +9,7 @@ public class AIPoliceman : MonoBehaviour
     public Vector3 lastKnownLocation;
     public float locationUpdateTime = -1.0f;
     public float sightRange = 10.0f;
+    public float catchRange = 1.0f;
     float talkRange = 3.0f;
     float talkTime = 2.0f;
     public Transform[] targetList;
@@ -47,7 +48,13 @@ public class AIPoliceman : MonoBehaviour
 
         while (CanChase())
         {
+            if (Vector3.Distance(transform.position, player.transform.position) < catchRange)
+            {
+                player.GetCatchedPoliceman();
+                yield break;
+            }
             lastKnownLocation = player.transform.position;
+
             yield return null;
         }
 
@@ -157,9 +164,18 @@ public class AIPoliceman : MonoBehaviour
     }
 
 
+    public void ForceCatchUp(Vector3 position)
+    {
+        lastKnownLocation = position;
+        locationUpdateTime = Time.time;
+        StopAllCoroutines();
+        StartCoroutine("CatchUp");
+    }
+
+
     bool CanChase()
     {
-        return Vision.CanSee(transform, player.transform, sightRange) && player.compromised;
+        return Vision.CanSee(transform, player.transform, sightRange) && (player.compromised || !player.wasGoatForFifeSeconds);
     }
 
 
