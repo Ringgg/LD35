@@ -46,20 +46,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                if (!IsVisible())
-                {
-                    if (compromised)
-                    {
-                        compromised = false;
-                        StartCoroutine("AfterChangingToGoat");
-                    }
-                }
-                else
-                    compromised = true;
-
-                state = State.goat;
-                dudeMesh.SetActive(false);
-                goatMesh.SetActive(true);
+                ChangeToGoat();
             }
         }
     }
@@ -86,6 +73,25 @@ public class Player : MonoBehaviour
 
         //end timer
         wasGoatForFifeSeconds = true;
+    }
+
+
+    public void ChangeToGoat()
+    {
+        if (!IsVisible())
+        {
+            if (compromised)
+            {
+                compromised = false;
+                StartCoroutine("AfterChangingToGoat");
+            }
+        }
+        else
+            compromised = true;
+
+        state = State.goat;
+        dudeMesh.SetActive(false);
+        goatMesh.SetActive(true);
     }
 
 
@@ -153,6 +159,10 @@ public class Player : MonoBehaviour
 
         foreach (AICitizen c in Game.instance.citizens)
             if (Vision.CanSee(c.transform, transform, c.sightRange))
+                return true;
+
+        foreach (AITerrorist t in Game.instance.terrorists)
+            if (Vision.CanSee(t.transform, transform, t.sightRange))
                 return true;
 
         return false;

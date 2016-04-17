@@ -14,6 +14,9 @@ public class AIPoliceman : MonoBehaviour
     float talkTime = 2.0f;
     public Transform[] targetList;
 
+    public GameObject pointerPrefab;
+    FlashingMaterial pointerInstance;
+
     //helper variables
     RaycastHit hitInfo;
     Player player;
@@ -134,10 +137,10 @@ public class AIPoliceman : MonoBehaviour
         }
 
         controller.target = null;
+        pointerInstance = (Instantiate(pointerPrefab, citizen.lastKnownLocation - new Vector3(0.0f, 0.5f, 0.0f), Quaternion.identity) as GameObject).GetComponent<FlashingMaterial>();
+        //todo: play talking sound
         while (remainingTime > 0.0f)
         {
-            //todo: play talking sound
-            //place indicator of position a citizen is pointing
             remainingTime -= Time.deltaTime;
             if (CanChase())
             {
@@ -148,6 +151,8 @@ public class AIPoliceman : MonoBehaviour
 
             yield return null;
         }
+
+        pointerInstance.active = false;
 
         if (citizen.locationUpdateTime > locationUpdateTime)
         {

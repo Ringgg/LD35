@@ -8,7 +8,7 @@ public class Ritual : MonoBehaviour
     public float time;
 
     [SerializeField]
-    GameObject particleEffect;
+    ParticleSystem particleEffect;
 
 
     void Start()
@@ -27,12 +27,16 @@ public class Ritual : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player")
+        {
             StopCoroutine(DoRitual());
+            particleEffect.enableEmission = false;
+        }
         stop = true;
     }
 
     IEnumerator DoRitual()
     {
+        particleEffect.enableEmission = true;
         float timePassed = 0;
 
         while (timePassed < time && !stop)
@@ -69,15 +73,15 @@ public class Ritual : MonoBehaviour
         closest.ForceCatchUp(transform.position);
 
         //przez 10s nie mozesz sie zmienic
-        Game.instance.player.shiftCooldown = 10.0f;
+        Game.instance.player.shiftCooldown = 5.0f;
 
         //spawn particle
-        if (particleEffect != null)
-            Instantiate(particleEffect, transform.position + Vector3.up, Quaternion.identity);
+        particleEffect.enableEmission = false;
 
         //game logic
         Game.instance.ritualsRemaining--;
         Game.instance.timeRemaining += 60.0f;
+        Game.instance.player.ChangeToGoat();
         Debug.Log("Ritual completed. " + Game.instance.ritualsRemaining + " more remaining");
         if (Game.instance.ritualsRemaining == 0)
             Game.instance.player.WinGame();

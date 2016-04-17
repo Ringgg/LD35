@@ -5,17 +5,13 @@ using System.Collections;
 public class AITerrorist : MonoBehaviour {
 
     public Vector3 lastKnownLocation;
-    public float locationUpdateTme;
-    public bool isMoving = true;
-    bool seeGoat = false;
-    float sightRange = 10.0f;
+    public Vector3 startLocation;
+    public float sightRange = 10.0f;
+    public float catchRange = 1.0f;
 
-    RaycastHit hitInfo;
     Player player;
 
     AICharacterControl controller;
-
-    public Transform[] targetList;
 
     void Start()
     {
@@ -23,18 +19,81 @@ public class AITerrorist : MonoBehaviour {
         player = Game.instance.player;
         controller = GetComponent<AICharacterControl>();
         lastKnownLocation = transform.position;
+        startLocation = transform.position;
 
-        controller.target = targetList[Random.Range(0, targetList.Length - 1)];
+        StartCoroutine("Stand");
     }
 
-    void Update()
+
+    IEnumerator Stand()
     {
-        //Debug.Log(Game.instance.player.transform.position);
-        if (Vision.CanSee(transform, player.transform, sightRange))
+        yield return new WaitForSeconds(2.0f);
+        controller.agent.destination = startLocation;
+
+        while (!CanChase())
         {
-            Debug.Log("See you");
+            yield return null;
         }
+
+        controller.target = player.transform;
+        StartCoroutine("Chase");
+        yield break;
     }
+
+
+    IEnumerator Chase()
+    {
+        controller.target = player.transform;
+
+        while (CanChase())
+        {
+            if (Vector3.Distance(transform.position, player.transform.position) < catchRange)
+            {
+                player.GetCatchedTerririst();
+                yield break;
+            }
+            lastKnownLocation = player.transform.position;
+
+            yield return null;
+        }
+
+        controller.target = null;
+        StartCoroutine("CatchUp");
+    }
+
+
+    IEnumerator CatchUp()
+    {
+        controller.agent.SetDestination(lastKnownLocation);
+
+        yield return null;
+
+        while (!IsAtDeadEnd())
+        {
+            if (CanChase())
+            {
+                StartCoroutine("Chase");
+                yield break;
+            }
+            yield return null;
+        }
+
+        StartCoroutine("Stand");
+        yield break;
+    }
+
+
+    bool IsAtDeadEnd()
+    {
+        return controller.agent.stoppingDistance > controller.agent.remainingDistance;
+    }
+
+
+    bool CanChase()
+    {
+        return Vision.CanSee(transform, player.transform, sightRange) && player.state == Player.State.goat;
+    }
+
 
     void OnDestroy()
     {

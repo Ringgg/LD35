@@ -405,9 +405,9 @@ ParticleSystem:
     rotation3D: 0
   ShapeModule:
     serializedVersion: 2
-    enabled: 0
-    type: 3
-    radius: 0.1
+    enabled: 1
+    type: 1
+    radius: 1
     angle: 25
     length: 5
     boxX: 1
@@ -619,10 +619,10 @@ ParticleSystem:
           rgba: 16777215
         key1:
           serializedVersion: 2
-          rgba: 1459617791
+          rgba: 3254779903
         key2:
           serializedVersion: 2
-          rgba: 318767104
+          rgba: 654311424
         key3:
           serializedVersion: 2
           rgba: 0
@@ -793,7 +793,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 0
+          value: -1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -818,7 +818,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: -1
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
