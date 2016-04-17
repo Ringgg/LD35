@@ -329,7 +329,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &152872
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -480,7 +480,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &176212
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -533,6 +533,21 @@ GameObject:
   - 4: {fileID: 440858}
   m_Layer: 0
   m_Name: Bone002
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &180638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 445994}
+  m_Layer: 0
+  m_Name: Dummy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -760,7 +775,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 496402}
-  m_Father: {fileID: 472344}
+  m_Father: {fileID: 445994}
   m_RootOrder: 0
 --- !u!4 &404214
 Transform:
@@ -1046,6 +1061,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 496402}
   m_RootOrder: 4
+--- !u!4 &445994
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180638}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 402882}
+  - {fileID: 497918}
+  m_Father: {fileID: 472344}
+  m_RootOrder: 0
 --- !u!4 &446982
 Transform:
   m_ObjectHideFlags: 1
@@ -1224,8 +1253,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 402882}
-  - {fileID: 497918}
+  - {fileID: 445994}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &472952
@@ -1360,7 +1388,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 424074}
-  m_Father: {fileID: 472344}
+  m_Father: {fileID: 445994}
   m_RootOrder: 1
 --- !u!4 &498388
 Transform:
@@ -1791,7 +1819,8 @@ MonoBehaviour:
   m_MovementAcceleration: 15
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
-  animator: {fileID: 9509626}
+  dummy: {fileID: 445994}
+  rotationAngle: 8
 --- !u!136 &13698484
 CapsuleCollider:
   m_ObjectHideFlags: 1

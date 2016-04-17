@@ -897,6 +897,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   dummy: {fileID: 433062}
+  rotationAngle: 5
 --- !u!136 &13671324
 CapsuleCollider:
   m_ObjectHideFlags: 1

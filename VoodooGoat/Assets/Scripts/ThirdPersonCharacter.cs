@@ -12,6 +12,7 @@ public class ThirdPersonCharacter : MonoBehaviour
     //funnyRotation
     [SerializeField]
     Transform dummy;
+    public float rotationAngle = 10.0f;
     float rotationStrength = 0.0f;
 
 	Rigidbody m_Rigidbody;
@@ -28,11 +29,13 @@ public class ThirdPersonCharacter : MonoBehaviour
     void Update()
     {
         rotationStrength = Mathf.Clamp(m_Rigidbody.velocity.magnitude / m_MovementSpeed, 0, 1);
+        if (name == "rotationAngle")
+            Debug.Log(rotationStrength);
         if (rotationStrength < 0.1f) return;
         dummy.LookAt(transform.position + transform.forward * 100);
         Vector3 axis = Vector3.right + new Vector3(0, Mathf.Sin(Time.time * 10), Mathf.Cos(20*Time.time));
         axis = dummy.InverseTransformDirection(axis);
-        dummy.Rotate(axis, 10 * rotationStrength * Mathf.Sin(Time.time * 15));
+        dummy.Rotate(axis, rotationAngle * rotationStrength * Mathf.Sin(Time.time * 15));
     }
 
 	public void Move(Vector3 move)
