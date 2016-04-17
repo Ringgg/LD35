@@ -1519,6 +1519,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  endGoatTerro: {fileID: 0}
+  endGoatPolice: {fileID: 0}
+  endDudePolice: {fileID: 0}
+  endEndTime: {fileID: 0}
+  endVictory: {fileID: 0}
   SmokePrefab: {fileID: 184700, guid: 306db8cb2d1baf5428ef9326132f4540, type: 2}
   dudeMesh: {fileID: 152872}
   goatMesh: {fileID: 176212}
@@ -1527,6 +1532,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cb018cb802ce79447b9c7a3275aeb267, type: 3}
   - {fileID: 8300000, guid: 6a65d01843ceb5f48a736fae9da6caa9, type: 3}
   - {fileID: 8300000, guid: 9946886dc96162c4b8c6f5bd053c6eb7, type: 3}
+  win: {fileID: 8300000, guid: 1f6c185eca956004394196ba583c1f98, type: 3}
+  lose: {fileID: 8300000, guid: fc5ace25e324ec3468c0b720041b5bda, type: 3}
+  music: {fileID: 0}
   compromised: 0
   wasGoatForFifeSeconds: 1
   visible: 0
