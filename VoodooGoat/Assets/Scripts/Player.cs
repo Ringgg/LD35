@@ -19,6 +19,10 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject goatMesh;
     [SerializeField] AudioClip poof;
     [SerializeField] AudioClip[] goat;
+    [SerializeField] AudioClip win;
+    [SerializeField] AudioClip lose;
+
+    public AudioSource music;
 
     public bool compromised = true;
     public bool wasGoatForFifeSeconds = true;
@@ -135,6 +139,9 @@ public class Player : MonoBehaviour
             else
                 endDudePolice.SetActive(true);
             GetComponent<ThirdPersonUserControl>().enabled = false;
+            music.Stop();
+            audio.clip = lose;
+            audio.Play();
             enabled = false;
         }
     }
@@ -150,6 +157,9 @@ public class Player : MonoBehaviour
                 OnGameEnd();
             endGoatTerro.SetActive(true);
             GetComponent<ThirdPersonUserControl>().enabled = false;
+            music.Stop();
+            audio.clip = lose;
+            audio.Play();
             enabled = false;
         }
     }
@@ -165,6 +175,9 @@ public class Player : MonoBehaviour
                 OnGameEnd();
             endEndTime.SetActive(true);
             GetComponent<ThirdPersonUserControl>().enabled = false;
+            music.Stop();
+            audio.clip = lose;
+            audio.Play();
             enabled = false;
         }
     }
@@ -179,6 +192,9 @@ public class Player : MonoBehaviour
             if (OnGameEnd != null)
                 OnGameEnd();
             GetComponent<ThirdPersonUserControl>().enabled = false;
+            music.Stop();
+            audio.clip = win;
+            audio.Play();
             enabled = false;
         }
     }
