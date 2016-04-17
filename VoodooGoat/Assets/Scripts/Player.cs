@@ -9,14 +9,19 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject SmokePrefab;
     [SerializeField] GameObject dudeMesh;
     [SerializeField] GameObject goatMesh;
+    [SerializeField] AudioClip poof;
+    [SerializeField] AudioClip[] goat;
 
     public bool compromised = true;
     public bool wasGoatForFifeSeconds = true;
     public float shiftCooldown;
 
+    AudioSource audio;
+
     void Start()
     {
         Game.instance.player = this;
+        audio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -33,8 +38,13 @@ public class Player : MonoBehaviour
 
             shiftCooldown += 1.0f;
 
+            audio.clip = poof;
+            audio.Play();
+
             if (SmokePrefab != null)
                 Instantiate(SmokePrefab, transform.position, Quaternion.identity);
+
+
 
             if(state == State.goat)
             {
@@ -89,6 +99,8 @@ public class Player : MonoBehaviour
         else
             compromised = true;
 
+        audio.clip = goat[Random.Range(0, goat.Length - 1)];
+        audio.Play();
         state = State.goat;
         dudeMesh.SetActive(false);
         goatMesh.SetActive(true);
