@@ -1,9 +1,9 @@
 fileFormatVersion: 2
 guid: 19e47dc034f607e449f3795615be620c
-timeCreated: 1460894237
+timeCreated: 1460924850
 licenseType: Free
 ModelImporter:
-  serializedVersion: 18
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: Base HumanHead
     100002: Base HumanLCalf
@@ -30,9 +30,8 @@ ModelImporter:
     100044: Base HumanSpine2
     100046: Base HumanSpine3
     100048: Base HumanSpine4
-    100050: Cylinder001
-    100052: HumanBody
-    100054: //RootNode
+    100050: HumanBody
+    100052: //RootNode
     400000: Base HumanHead
     400002: Base HumanLCalf
     400004: Base HumanLCollarbone
@@ -58,15 +57,12 @@ ModelImporter:
     400044: Base HumanSpine2
     400046: Base HumanSpine3
     400048: Base HumanSpine4
-    400050: Cylinder001
-    400052: HumanBody
-    400054: //RootNode
+    400050: HumanBody
+    400052: //RootNode
     4300000: HumanBody
-    4300002: Cylinder001
     7400000: move
     9500000: //RootNode
-    13700000: Cylinder001
-    13700002: HumanBody
+    13700000: HumanBody
   materials:
     importMaterials: 1
     materialName: 0
@@ -74,6 +70,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -81,9 +78,9 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations:
@@ -97,6 +94,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
@@ -180,12 +178,11 @@ ModelImporter:
         weight: 1
       - path: Base HumanRPlatform
         weight: 1
-      - path: Cylinder001
-        weight: 1
       - path: HumanBody
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -206,20 +203,19 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
