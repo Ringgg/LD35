@@ -14,7 +14,7 @@ public class Ritual : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         stop = false;
-        if (other.gameObject.tag == "Player" && !done)
+        if (other.gameObject.tag == "Player" && !done && Game.instance.player.state == Player.State.dude)
             StartCoroutine(DoRitual());
     }
 

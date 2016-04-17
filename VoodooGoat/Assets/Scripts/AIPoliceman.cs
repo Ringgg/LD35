@@ -11,7 +11,6 @@ public class AIPoliceman : MonoBehaviour
     public float sightRange = 10.0f;
     float talkRange = 3.0f;
     float talkTime = 2.0f;
-    float x = 0.5f;
     public Transform[] targetList;
 
     //helper variables
@@ -93,7 +92,7 @@ public class AIPoliceman : MonoBehaviour
         SetNewTarget();
         while (!CanChase())
         {
-            if (controller.agent.remainingDistance < x)
+            if (controller.agent.remainingDistance < controller.agent.stoppingDistance)
             {
                 SetNewTarget();
                 yield return new WaitForSeconds(0.1f);
@@ -105,16 +104,7 @@ public class AIPoliceman : MonoBehaviour
         StartCoroutine("Chase");
         yield break;
     }
-
-    IEnumerator Follow()
-    {
-        while (true)
-        {
-
-            yield return new WaitForEndOfFrame();
-            //yield return null;
-        }
-    }
+    
 
     IEnumerator Investigate()
     {
