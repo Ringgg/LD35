@@ -36,6 +36,7 @@ public class Ritual : MonoBehaviour
         {
             StopCoroutine(DoRitual());
             particleEffect.enableEmission = false;
+            audio.Stop();
         }
         stop = true;
     }
