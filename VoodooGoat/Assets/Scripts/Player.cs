@@ -83,14 +83,14 @@ public class Player : MonoBehaviour
         wasGoatForFifeSeconds = false;
         //start timer
 
-        while(timePassed < 5.0f)
+        while(timePassed < 3.0f)
         {
             if (IsVisibleByPoliceman())
             {
                 //todo: spawn particle
                 //play sound
                 compromised = true;
-                shiftCooldown += 3.0f;
+                shiftCooldown += 2.0f;
                 yield break;
             }
             timePassed += Time.deltaTime;
