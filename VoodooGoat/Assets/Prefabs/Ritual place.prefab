@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 5
   particleEffect: {fileID: 19835806}
+  finishedMat: {fileID: 2100000, guid: 868edfbe41b13114590edde6c972b85b, type: 2}
 --- !u!198 &19835806
 ParticleSystem:
   m_ObjectHideFlags: 1

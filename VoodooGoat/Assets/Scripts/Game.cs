@@ -24,7 +24,7 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        timeRemaining -= Mathf.Clamp(timeRemaining - Time.deltaTime, 0, float.MaxValue);
+        timeRemaining = Mathf.Clamp(timeRemaining - Time.deltaTime, 0, float.MaxValue);
         if (timeRemaining == 0.0f)
             player.RunOutOfTime();
     }
