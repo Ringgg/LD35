@@ -29,12 +29,12 @@ public class AITerrorist : MonoBehaviour {
 
     IEnumerator Stand()
     {
+        particleEffect.enableEmission = false;
         yield return new WaitForSeconds(2.0f);
         controller.agent.destination = startLocation;
 
         while (!CanChase())
         {
-            particleEffect.enableEmission = false;
             yield return null;
         }
 

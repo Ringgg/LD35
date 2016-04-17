@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainUI : MonoBehaviour
@@ -16,6 +17,14 @@ public class MainUI : MonoBehaviour
     public Text textCarmaRemaining;
 
     public Text textCurrentTask;
+
+    public GameObject trans1;
+    public GameObject trans2;
+
+    void Start()
+    {
+        Game.instance.player.OnGameEnd += EndGame;
+    }
 
     void OnGUI()
     {
@@ -47,5 +56,23 @@ public class MainUI : MonoBehaviour
         else
             text += "Perform a ritual!";
         textCurrentTask.text = "current task: " + text;
+    }
+
+
+    public void EndGame()
+    {
+        trans1.SetActive(true);
+        trans2.SetActive(true);
+    }
+
+    
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene(1);
     }
 }

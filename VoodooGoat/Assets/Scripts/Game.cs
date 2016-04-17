@@ -33,6 +33,7 @@ public class Game : MonoBehaviour
     void OnApplicationQuit()
     {
         quitting = true;
+        _instance = null;
     }
 
 

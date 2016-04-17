@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Player : MonoBehaviour
 {
     public enum State { dude, goat }
     public State state;
+
+    public GameObject endGoatTerro;
+    public GameObject endGoatPolice;
+    public GameObject endDudePolice;
+    public GameObject endEndTime;
+    public GameObject endVictory;
+    public Action OnGameEnd;
 
     [SerializeField] GameObject SmokePrefab;
     [SerializeField] GameObject dudeMesh;
@@ -44,12 +52,7 @@ public class Player : MonoBehaviour
 
             audio.clip = poof;
             audio.Play();
-
-            if (SmokePrefab != null)
-                Instantiate(SmokePrefab, transform.position, Quaternion.identity);
-
-
-
+            
             if(state == State.goat)
             {
                 if (remainingShiftsBack == 0) return;
@@ -111,7 +114,7 @@ public class Player : MonoBehaviour
         else
             compromised = true;
 
-        audio.clip = goat[Random.Range(0, goat.Length - 1)];
+        audio.clip = goat[UnityEngine.Random.Range(0, goat.Length - 1)];
         audio.Play();
         state = State.goat;
         dudeMesh.SetActive(false);
@@ -125,6 +128,12 @@ public class Player : MonoBehaviour
         {
             Game.instance.finished = true;
             Debug.Log("you got catched by a policeman");
+            if (OnGameEnd != null)
+                OnGameEnd();
+            if (state == State.goat)
+                endGoatPolice.SetActive(true);
+            else
+                endDudePolice.SetActive(true);
             GetComponent<ThirdPersonUserControl>().enabled = false;
             enabled = false;
         }
@@ -137,6 +146,9 @@ public class Player : MonoBehaviour
         {
             Game.instance.finished = true;
             Debug.Log("you got catched by a terrorist");
+            if (OnGameEnd != null)
+                OnGameEnd();
+            endGoatTerro.SetActive(true);
             GetComponent<ThirdPersonUserControl>().enabled = false;
             enabled = false;
         }
@@ -149,6 +161,9 @@ public class Player : MonoBehaviour
         {
             Game.instance.finished = true;
             Debug.Log("you ran out of time");
+            if (OnGameEnd != null)
+                OnGameEnd();
+            endEndTime.SetActive(true);
             GetComponent<ThirdPersonUserControl>().enabled = false;
             enabled = false;
         }
@@ -161,6 +176,8 @@ public class Player : MonoBehaviour
         {
             Game.instance.finished = true;
             Debug.Log("you won");
+            if (OnGameEnd != null)
+                OnGameEnd();
             GetComponent<ThirdPersonUserControl>().enabled = false;
             enabled = false;
         }
