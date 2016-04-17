@@ -9,6 +9,9 @@ public class AITerrorist : MonoBehaviour {
     public float sightRange = 10.0f;
     public float catchRange = 1.0f;
 
+    [SerializeField]
+    ParticleSystem particleEffect;
+
     Player player;
 
     AICharacterControl controller;
@@ -20,7 +23,6 @@ public class AITerrorist : MonoBehaviour {
         controller = GetComponent<AICharacterControl>();
         lastKnownLocation = transform.position;
         startLocation = transform.position;
-
         StartCoroutine("Stand");
     }
 
@@ -32,6 +34,7 @@ public class AITerrorist : MonoBehaviour {
 
         while (!CanChase())
         {
+            particleEffect.enableEmission = false;
             yield return null;
         }
 
@@ -53,7 +56,7 @@ public class AITerrorist : MonoBehaviour {
                 yield break;
             }
             lastKnownLocation = player.transform.position;
-
+            particleEffect.enableEmission = true;
             yield return null;
         }
 

@@ -11,10 +11,12 @@ public class Ritual : MonoBehaviour
     ParticleSystem particleEffect;
     [SerializeField]
     Material finishedMat;
+    AudioSource audio;
 
     void Start()
     {
         Game.instance.ritualsRemaining++;
+        audio = GetComponent<AudioSource>();
     }
 
 
@@ -34,6 +36,7 @@ public class Ritual : MonoBehaviour
         {
             StopCoroutine(DoRitual());
             particleEffect.enableEmission = false;
+            audio.Stop();
         }
         stop = true;
     }
@@ -42,7 +45,7 @@ public class Ritual : MonoBehaviour
     {
         particleEffect.enableEmission = true;
         float timePassed = 0;
-
+        audio.Play();
         while (timePassed < time && !stop)
         {
             timePassed++;
@@ -59,7 +62,7 @@ public class Ritual : MonoBehaviour
     void Finish()
     {
         Game.instance.player.compromised = true;
-
+        audio.Stop();
         //najblizszy policjant idzie na miejsce zdarzenia
         AIPoliceman closest = null;
         float closestDist = float.MaxValue;
