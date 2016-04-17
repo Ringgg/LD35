@@ -9,7 +9,8 @@ public class Ritual : MonoBehaviour
 
     [SerializeField]
     ParticleSystem particleEffect;
-
+    [SerializeField]
+    Material finishedMat;
 
     void Start()
     {
@@ -21,7 +22,10 @@ public class Ritual : MonoBehaviour
     {
         stop = false;
         if (other.gameObject.tag == "Player" && !done && Game.instance.player.state == Player.State.dude)
+        {
+            StopCoroutine(DoRitual());
             StartCoroutine(DoRitual());
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -72,11 +76,12 @@ public class Ritual : MonoBehaviour
         
         closest.ForceCatchUp(transform.position);
 
-        //przez 10s nie mozesz sie zmienic
+        //przez 5s nie mozesz sie zmienic
         Game.instance.player.shiftCooldown = 5.0f;
 
         //spawn particle
         particleEffect.enableEmission = false;
+        GetComponent<MeshRenderer>().material = finishedMat;
 
         //game logic
         Game.instance.ritualsRemaining--;

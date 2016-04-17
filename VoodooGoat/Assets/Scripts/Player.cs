@@ -12,7 +12,10 @@ public class Player : MonoBehaviour
 
     public bool compromised = true;
     public bool wasGoatForFifeSeconds = true;
+    public bool visible = false;
     public float shiftCooldown;
+
+    public int remainingShiftsBack = 3;
 
     void Start()
     {
@@ -23,7 +26,9 @@ public class Player : MonoBehaviour
     {
         shiftCooldown = Mathf.MoveTowards(shiftCooldown, 0.0f, Time.deltaTime);
 
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        visible = IsVisible();
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (shiftCooldown != 0)
             {
@@ -33,12 +38,15 @@ public class Player : MonoBehaviour
 
             shiftCooldown += 1.0f;
 
-            if (SmokePrefab != null)
-                Instantiate(SmokePrefab, transform.position, Quaternion.identity);
 
             if(state == State.goat)
             {
-                if (IsVisible())
+                if (remainingShiftsBack == 0) return;
+
+                remainingShiftsBack--;
+                if (SmokePrefab != null)
+                    Instantiate(SmokePrefab, transform.position, Quaternion.identity);
+                if (visible)
                     compromised = true;
                 state = State.dude;
                 dudeMesh.SetActive(true);
@@ -78,7 +86,10 @@ public class Player : MonoBehaviour
 
     public void ChangeToGoat()
     {
-        if (!IsVisible())
+        if (SmokePrefab != null)
+            Instantiate(SmokePrefab, transform.position, Quaternion.identity);
+
+        if (!visible)
         {
             if (compromised)
             {
