@@ -6592,84 +6592,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 492084, guid: 1398158b2c340d34b9ffb6c43d24e089, type: 2}
   m_PrefabInternal: {fileID: 972379567}
---- !u!1 &937363068 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 109884, guid: f37edc952ba0fdb42a5247d5b6bc62ff, type: 2}
-  m_PrefabInternal: {fileID: 2144721652}
---- !u!82 &937363069
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 937363068}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!4 &943800870 stripped
 Transform:
   m_PrefabParentObject: {fileID: 492084, guid: 1398158b2c340d34b9ffb6c43d24e089, type: 2}
@@ -15611,10 +15533,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11425250, guid: f37edc952ba0fdb42a5247d5b6bc62ff, type: 2}
-      propertyPath: goat.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 472344, guid: f37edc952ba0fdb42a5247d5b6bc62ff, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -15648,33 +15566,17 @@ Prefab:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 11425250, guid: f37edc952ba0fdb42a5247d5b6bc62ff, type: 2}
-      propertyPath: poof
+      propertyPath: endGoatTerro
       value: 
-      objectReference: {fileID: 8300000, guid: bcfe13eaf1fc2bd4aa9a9d537ff437cb, type: 3}
-    - target: {fileID: 11425250, guid: f37edc952ba0fdb42a5247d5b6bc62ff, type: 2}
-      propertyPath: goat.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: cb018cb802ce79447b9c7a3275aeb267, type: 3}
-    - target: {fileID: 11425250, guid: f37edc952ba0fdb42a5247d5b6bc62ff, type: 2}
-      propertyPath: goat.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 6a65d01843ceb5f48a736fae9da6caa9, type: 3}
-    - target: {fileID: 11425250, guid: f37edc952ba0fdb42a5247d5b6bc62ff, type: 2}
-      propertyPath: goat.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 9946886dc96162c4b8c6f5bd053c6eb7, type: 3}
-    - target: {fileID: 11425250, guid: f37edc952ba0fdb42a5247d5b6bc62ff, type: 2}
-      propertyPath: endDudePolice
-      value: 
-      objectReference: {fileID: 1030309664}
+      objectReference: {fileID: 1427869677}
     - target: {fileID: 11425250, guid: f37edc952ba0fdb42a5247d5b6bc62ff, type: 2}
       propertyPath: endGoatPolice
       value: 
       objectReference: {fileID: 1030309664}
     - target: {fileID: 11425250, guid: f37edc952ba0fdb42a5247d5b6bc62ff, type: 2}
-      propertyPath: endGoatTerro
+      propertyPath: endDudePolice
       value: 
-      objectReference: {fileID: 1427869677}
+      objectReference: {fileID: 1030309664}
     - target: {fileID: 11425250, guid: f37edc952ba0fdb42a5247d5b6bc62ff, type: 2}
       propertyPath: endEndTime
       value: 
