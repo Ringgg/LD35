@@ -14,6 +14,8 @@ public class AIPoliceman : MonoBehaviour
     float talkTime = 2.0f;
     public Transform[] targetList;
 
+    [SerializeField] ParticleSystem warning;
+
     public GameObject pointerPrefab;
     FlashingMaterial pointerInstance;
 
@@ -48,7 +50,7 @@ public class AIPoliceman : MonoBehaviour
     IEnumerator Chase()
     {
         controller.target = player.transform;
-
+        warning.enableEmission = true;
         while (CanChase())
         {
             if (Vector3.Distance(transform.position, player.transform.position) < catchRange)
@@ -98,6 +100,8 @@ public class AIPoliceman : MonoBehaviour
 
     IEnumerator Wander()
     {
+        warning.enableEmission = false;
+
         yield return new WaitForSeconds(2.0f);
         SetNewTarget();
         while (!CanChase())

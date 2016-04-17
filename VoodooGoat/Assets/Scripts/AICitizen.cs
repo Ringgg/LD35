@@ -7,13 +7,11 @@ public class AICitizen : MonoBehaviour
     public float locationUpdateTime;
     public float sightRange = 10.0f;
     public bool isMoving = true;
-    GameObject instance;
-
-    public GameObject warning;
+    [SerializeField] ParticleSystem warning;
 
     AICharacterControl controller;
 
-    public Transform[] targetList;
+    //public Transform[] targetList;
 
     //helper variables
     RaycastHit hitInfo;
@@ -23,9 +21,6 @@ public class AICitizen : MonoBehaviour
         controller = GetComponent<AICharacterControl>();
         lastKnownLocation = transform.position;
         Game.instance.citizens.Add(this);
-        instance = Instantiate(warning) as GameObject;
-        instance.transform.position = transform.position + new Vector3(0, 1, 0);
-        instance.active = false;
     }
 
 
@@ -33,16 +28,19 @@ public class AICitizen : MonoBehaviour
     {
         if (Game.instance.player.compromised && Vision.CanSee(transform, Game.instance.player.transform, sightRange))
         {
-            if (!instance.active)
+            if (!warning.enableEmission)
             {
-                instance.active = true;
+                warning.enableEmission = true;
+                //instance.active = true;
             }
+            warning.enableEmission = true;
             lastKnownLocation = Game.instance.player.transform.position;
             locationUpdateTime = Time.time;
         }
         else
         {
-            instance.active = false;
+            //instance.active = false;
+            warning.enableEmission = false;
         }
     }
 
