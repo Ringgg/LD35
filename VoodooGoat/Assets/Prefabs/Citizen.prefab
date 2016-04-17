@@ -896,7 +896,7 @@ MonoBehaviour:
   m_MovementAcceleration: 10
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
-  animator: {fileID: 0}
+  dummy: {fileID: 460304}
 --- !u!136 &13698450
 CapsuleCollider:
   m_ObjectHideFlags: 1
