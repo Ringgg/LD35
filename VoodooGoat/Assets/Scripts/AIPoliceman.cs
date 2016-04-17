@@ -10,7 +10,7 @@ public class AIPoliceman : MonoBehaviour
     public float locationUpdateTime = -1.0f;
     public float sightRange = 10.0f;
     public float catchRange = 1.0f;
-    float talkRange = 3.0f;
+    float talkRange = 2.0f;
     float talkTime = 2.0f;
     public Transform[] targetList;
 
@@ -215,7 +215,7 @@ public class AIPoliceman : MonoBehaviour
     {
         do
         {
-            controller.target = targetList[Random.Range(0, targetList.Length - 1)];
+            controller.target = targetList[Random.Range(0, targetList.Length)];
 
         } while (controller.target.position == lastKnownLocation);
         lastKnownLocation = controller.target.position;
