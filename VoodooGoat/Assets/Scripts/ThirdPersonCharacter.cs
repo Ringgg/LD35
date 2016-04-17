@@ -8,6 +8,8 @@ public class ThirdPersonCharacter : MonoBehaviour
     [SerializeField] float m_MovementAcceleration = 5;
 	[SerializeField] float m_MovingTurnSpeed = 360;
 	[SerializeField] float m_StationaryTurnSpeed = 180;
+    [SerializeField]
+    Animator animator;
 
 	Rigidbody m_Rigidbody;
 	float m_TurnAmount;
@@ -22,6 +24,10 @@ public class ThirdPersonCharacter : MonoBehaviour
 	public void Move(Vector3 move)
 	{
         //movement
+        if(gameObject.tag == "Player")
+            animator = GetComponentInChildren<Animator>();
+        if(animator != null)
+            animator.SetBool("walk", true);
         move.Normalize();
         m_Rigidbody.velocity = Vector3.MoveTowards(m_Rigidbody.velocity, move * m_MovementSpeed, m_MovementAcceleration * Time.fixedDeltaTime);
         
@@ -32,5 +38,8 @@ public class ThirdPersonCharacter : MonoBehaviour
 
         float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
         transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
+        if(move == Vector3.zero)
+            if (animator != null)
+                animator.SetBool("walk", false);
     }
 }
