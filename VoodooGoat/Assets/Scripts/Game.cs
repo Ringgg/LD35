@@ -18,7 +18,7 @@ public class Game : MonoBehaviour
 
     void Start()
     {
-        timeRemaining = 120.0f;
+        timeRemaining = 60.0f;
     }
 
 

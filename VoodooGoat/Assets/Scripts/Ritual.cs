@@ -23,7 +23,7 @@ public class Ritual : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         stop = false;
-        if (other.gameObject.tag == "Player" && !done && Game.instance.player.state == Player.State.dude)
+        if (other.gameObject.tag == "Player" && !done && Game.instance.player.state == Player.State.dude && !Game.instance.player.compromised)
         {
             StopCoroutine(DoRitual());
             StartCoroutine(DoRitual());
@@ -48,9 +48,9 @@ public class Ritual : MonoBehaviour
         audio.Play();
         while (timePassed < time && !stop)
         {
-            timePassed++;
+            timePassed = Mathf.Clamp(timePassed + Time.deltaTime, 0, float.MaxValue); ;
             Debug.Log(timePassed);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0);
         }
         if (timePassed >= time)
         {
@@ -88,7 +88,7 @@ public class Ritual : MonoBehaviour
 
         //game logic
         Game.instance.ritualsRemaining--;
-        Game.instance.timeRemaining += 60.0f;
+        Game.instance.timeRemaining += 20.0f;
         //Game.instance.player.ChangeToGoat();
         Debug.Log("Ritual completed. " + Game.instance.ritualsRemaining + " more remaining");
         if (Game.instance.ritualsRemaining == 0)

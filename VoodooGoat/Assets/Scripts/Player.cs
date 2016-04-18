@@ -193,6 +193,7 @@ public class Player : MonoBehaviour
             Debug.Log("you won");
             if (OnGameEnd != null)
                 OnGameEnd();
+            endVictory.SetActive(true);
             GetComponent<ThirdPersonUserControl>().enabled = false;
             music.Stop();
             audio.clip = win;
