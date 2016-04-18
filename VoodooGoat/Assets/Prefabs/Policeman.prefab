@@ -934,7 +934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MovementSpeed: 2
-  m_MovementAcceleration: 5
+  m_MovementAcceleration: 7
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   dummy: {fileID: 454950}
