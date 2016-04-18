@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
         wasGoatForFifeSeconds = false;
         //start timer
 
-        while(timePassed < 3.0f)
+        while(timePassed < 1.0f)
         {
             if (IsVisibleByPoliceman())
             {
@@ -106,6 +106,8 @@ public class Player : MonoBehaviour
     {
         if (SmokePrefab != null)
             Instantiate(SmokePrefab, transform.position, Quaternion.identity);
+
+        remainingShiftsBack = 0;
 
         if (!visible)
         {

@@ -11310,7 +11310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodPrefab: {fileID: 136374, guid: 805c3248809ec904988a7d7ccdaafbe4, type: 2}
-  spawnDelay: 3
+  spawnDelay: 2
 --- !u!1 &1562830096
 GameObject:
   m_ObjectHideFlags: 0

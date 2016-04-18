@@ -149,6 +149,7 @@ public class AIPoliceman : MonoBehaviour
             if (CanChase())
             {
                 citizen = null;
+                pointerInstance.active = false;
                 StartCoroutine("Chase");
                 yield break;
             }

@@ -89,7 +89,7 @@ public class Ritual : MonoBehaviour
         //game logic
         Game.instance.ritualsRemaining--;
         Game.instance.timeRemaining += 60.0f;
-        Game.instance.player.ChangeToGoat();
+        //Game.instance.player.ChangeToGoat();
         Debug.Log("Ritual completed. " + Game.instance.ritualsRemaining + " more remaining");
         if (Game.instance.ritualsRemaining == 0)
             Game.instance.player.WinGame();

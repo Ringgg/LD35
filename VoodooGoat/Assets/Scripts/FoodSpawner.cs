@@ -4,7 +4,7 @@ public class FoodSpawner : MonoBehaviour
 {
     [SerializeField]
     GameObject foodPrefab;
-    public float spawnDelay = 3.0f;
+    public float spawnDelay = 2.0f;
 
     void Start()
     {
