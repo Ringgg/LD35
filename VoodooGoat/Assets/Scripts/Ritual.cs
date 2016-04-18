@@ -48,7 +48,7 @@ public class Ritual : MonoBehaviour
         audio.Play();
         while (timePassed < time && !stop)
         {
-            timePassed = Mathf.Clamp(timePassed + Time.deltaTime, 0, float.MaxValue); ;
+            timePassed = Mathf.Clamp(timePassed + Time.deltaTime, 0, float.MaxValue);
             Debug.Log(timePassed);
             yield return new WaitForSeconds(0);
         }
